@@ -25,21 +25,21 @@ const BasicBackButtonLayout = ({ children }: BasicBackButtonLayoutProp) => {
         <TouchableWithoutFeedback
             onPress={() => (Platform.OS != "web" ? Keyboard.dismiss() : null)}
         >
-            <SafeAreaView
+            <ScrollView
                 style={apptw`bg-secondary   flex-1 shadow-md`}
-                edges={["top", "left", "right"]}
+                // edges={["top", "left", "right"]}
             >
-                <Pressable onPress={() => navigation.goBack()} style={tw.style("py-2 px-3", )}>
+                {/* <Pressable onPress={() => navigation.goBack()} style={tw.style("py-2 px-3", )}>
                     <MaterialIcons
                         name="keyboard-arrow-left"
                         size={40}
                         style={tw`bg-`}
                         color="black"
                     />
-                </Pressable>
+                </Pressable> */}
 
                 {children}
-            </SafeAreaView>
+            </ScrollView>
         </TouchableWithoutFeedback>
     );
 };

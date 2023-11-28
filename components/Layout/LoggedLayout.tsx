@@ -26,7 +26,7 @@ const LoggedInLayout = ({ children }: LoggedInLayoutProp) => {
             // edges={["top", "left", "right", "bottom"]}
             >
 
-                <View style={tw`flex-row justify-between py-4 px-6`} >
+                {/* <View style={tw`flex-row justify-between py-4 px-6`} >
 
                     <Pressable onPress={() => navigation.toggleDrawer()} style={tw.style("",)}>
                         <SimpleLineIcons
@@ -48,7 +48,7 @@ const LoggedInLayout = ({ children }: LoggedInLayoutProp) => {
                         />
                     </Pressable>
 
-                </View>
+                </View> */}
 
 
                 {children}
