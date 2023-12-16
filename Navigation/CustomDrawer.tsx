@@ -13,6 +13,7 @@ export default function CustomDrawer(props: any) {
         <DrawerContentScrollView
             contentContainerStyle={{
                 // paddingBottom: 40,
+                
                 // paddingTop: 90,
                 backgroundColor: "white",
                 // flex: 1,
@@ -20,12 +21,7 @@ export default function CustomDrawer(props: any) {
             }}
             {...props}
         >
-            <ImageBackground
-
-                style={{
-                    padding: 20, flexDirection: "row"
-                }}
-            >
+           
                 {/* <Image
                      source={require(" ")}
                     style={{
@@ -52,7 +48,7 @@ export default function CustomDrawer(props: any) {
 
 
 
-            </ImageBackground>
+
 
             <View
             >

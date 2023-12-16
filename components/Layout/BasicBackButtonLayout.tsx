@@ -26,7 +26,7 @@ const BasicBackButtonLayout = ({ children }: BasicBackButtonLayoutProp) => {
             onPress={() => (Platform.OS != "web" ? Keyboard.dismiss() : null)}
         >
             <ScrollView
-                style={apptw`bg-secondary   flex-1 shadow-md`}
+                style={apptw`bg-white   flex-1 shadow-md`}
                 // edges={["top", "left", "right"]}
             >
                 {/* <Pressable onPress={() => navigation.goBack()} style={tw.style("py-2 px-3", )}>

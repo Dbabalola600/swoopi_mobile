@@ -1,0 +1,1 @@
+exports.BASE_URL = "https://run.mocky.io/v3/124ec8a9-1fb0-4e4f-a8b6-facfc61133c3"

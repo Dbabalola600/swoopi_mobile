@@ -50,8 +50,7 @@ const SignUp = ({ navigation }: SignUpScreen) => {
                         </AppText>
                         <AppText
                             style={apptw`text-lg text-center  pb-5`}>
-                            Fill your details or continue with
-                            social media
+                            Fill in your details 
                         </AppText>
 
 

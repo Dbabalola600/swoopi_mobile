@@ -45,12 +45,11 @@ const SignIn = ({ navigation }: SignInScreen) => {
 
                         <AppText
                             style={apptw`text-3xl text-center text-black`}>
-                            Hello Dr!
+                            Hello!
                         </AppText>
                         <AppText
                             style={apptw`text-lg text-center `}>
-                            Fill your details or continue with
-                            social media
+                           Enter your details to continue
                         </AppText>
 
 
@@ -70,14 +69,14 @@ const SignIn = ({ navigation }: SignInScreen) => {
                             isPassword={true}
                         />
 
-                        <View>
+                        {/* <View>
                             <PressAppText
                                 // onPress={navigatetoForgotPassword}
                                 style={apptw`text-black `}
                             >
                                 Forgot Password?
                             </PressAppText>
-                        </View>
+                        </View> */}
 
                         <AppButton
                             buttonStyle={apptw`  my-6`}
@@ -89,7 +88,7 @@ const SignIn = ({ navigation }: SignInScreen) => {
 
 
                     </View>
-                    <View style={apptw`mb-19`}>
+                    <View style={apptw`mb-19 flex flex-row mx-auto`}>
 
 
 
@@ -98,17 +97,17 @@ const SignIn = ({ navigation }: SignInScreen) => {
                             Don't have an account?{' '}
 
 
-                            <PressAppText
-                                onPress={navigateToSignUp}
-                                style={apptw`text-primary top-[1]  `}>
-                                Register
-                            </PressAppText>
+                        
 
 
 
                         </AppText>
 
-
+                        <PressAppText
+                                onPress={navigateToSignUp}
+                                style={apptw`text-primary   `}>
+                                Register
+                            </PressAppText>
                     </View>
                 </ScrollView>
             </>
