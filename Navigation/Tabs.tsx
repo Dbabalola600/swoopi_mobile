@@ -7,7 +7,7 @@ import DashBoardScreen from "../screens/DashBoard/DashBoardScreen";
 import AccountScreen from "../screens/Account/AccountScreen";
 import OrdersScreen from "../screens/Orders/OrdersScreen";
 import SearchScreen from "../screens/Search/SearchScreen";
-import { Pressable, Image } from "react-native";
+import { Pressable, Image, View } from "react-native";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import AppText from "../components/Display/AppText";
 import { useState } from "react";
@@ -51,12 +51,7 @@ const Tabs = () => {
                         <Pressable
                             onPress={() => { }}
                         >
-                            {/* <AntDesign
-                                name="bells"
-                                size={20}
-                                style={{ marginRight: 15 }}
-                                color="black"
-                            /> */}
+
 
                             <Image
                                 source={require("../assets/icons/lover_1.png")}
@@ -66,8 +61,8 @@ const Tabs = () => {
                     ),
                     headerLeft: () => (
                         <Pressable onPress={
-                            // () => openDrawer()
-                         ()=>   console.log("addy")
+
+                            () => console.log("addy")
                         }
                             style={apptw` flex flex-row`}>
                             <Ionicons
@@ -87,11 +82,18 @@ const Tabs = () => {
 
                         </Pressable>
                     ),
-                    tabBarIcon: ({ color, size }) => (
-                        <Feather
-                            name="home"
-                            color={color}
-                            size={26} />
+                    tabBarIcon: ({ color, size, focused }) => (
+
+                        <View style={apptw``}>
+
+                            {focused && <View style={apptw`bg-[#00CF95] h-1 rounded-b-full w-10 mx-auto `}></View>}
+                            <Feather
+                                name="home"
+                                color={color}
+                                style={apptw`mx-auto`}
+                                size={26} />
+                        </View>
+
                     ),
                 }}
             />
@@ -103,11 +105,18 @@ const Tabs = () => {
                 component={OrdersScreen}
                 options={{
 
-                    tabBarIcon: ({ color, size }) => (
-                        <MaterialIcons
-                            name="dashboard"
-                            color={color}
-                            size={26} />
+                    tabBarIcon: ({ color, size, focused }) => (
+
+                        <View>
+                               {focused && <View style={apptw`bg-[#00CF95] h-1 rounded-b-full w-10 mx-auto `}></View>}
+
+                            <MaterialCommunityIcons
+                                name="ticket-account"
+                                color={color}
+                                style={apptw`mx-auto`}
+                                size={26} />
+                        </View>
+
                     ),
                 }}
             />
@@ -117,11 +126,18 @@ const Tabs = () => {
                 component={SearchScreen}
                 options={{
 
-                    tabBarIcon: ({ color, size }) => (
-                        <FontAwesome
-                            name="search"
-                            color={color}
-                            size={26} />
+                    tabBarIcon: ({ color, size, focused }) => (
+
+                        <View>
+                            {focused && <View style={apptw`bg-[#00CF95] h-1 rounded-b-full w-10 mx-auto `}></View>}
+
+                            <FontAwesome
+                                name="search"
+                                color={color}
+                                style={apptw`mx-auto`}
+                                size={26} />
+                        </View>
+
                     ),
                 }}
             />
@@ -130,21 +146,24 @@ const Tabs = () => {
                 component={AccountScreen}
                 options={{
 
-                    tabBarIcon: ({ color, size }) => (
-                        <Ionicons
-                            name="person-circle-outline"
-                            color={color}
-                            size={26} />
+                    tabBarIcon: ({ color, size, focused }) => (
+
+                        <View>
+                            {focused && <View style={apptw`bg-[#00CF95] h-1 rounded-b-full w-10 mx-auto `}></View>}
+
+                            <Ionicons
+                                name="person-circle-outline"
+                                color={color}
+                                style={apptw`mx-auto`}
+                                size={26} />
+                        </View>
+
                     ),
                 }}
             />
 
 
-            {/* <LocationDrawer isVisible={isDrawerVisible} onClose={closeDrawer}>
 
-
-
-            </LocationDrawer> */}
 
 
 

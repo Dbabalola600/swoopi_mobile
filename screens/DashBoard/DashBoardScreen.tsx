@@ -18,10 +18,13 @@ import Flower from "./Components/Flower"
 import FlashDrawer from "./Components/BottomDrawers/FlashDrawer"
 import PressAppText from "../../components/Display/PressAppText"
 import { RestaurantsArray } from "../../utils/data/mockData"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { RootStackParamList } from "../allroutes"
 
 
+type DashBoardProps = NativeStackScreenProps<RootStackParamList, "DashBoardScreen">
 
-function DashBoardScreen() {
+function DashBoardScreen({navigation}: DashBoardProps) {
 
     const [isSelected, SetSelected] = useState(false)
 
@@ -41,23 +44,9 @@ function DashBoardScreen() {
     const closeLocation = () => setLocationVisible(false);
 
     // filters
-    const openFlash = () => setFlashVisible(true);
-    const closeFlash = () => setFlashVisible(false);
+  
 
-    const openPickUp = () => setPickupVisible(true);
-    const closePickup = () => setPickupVisible(false);
-
-    const openOffers = () => setOffersVisible(true);
-    const closeOffers = () => setOffersVisible(false);
-
-    const openPrice = () => setPriceVisible(true);
-    const closePrice = () => setPriceVisible(false);
-
-    const openDelivery = () => setDeliveryVisible(true);
-    const closeDelivery = () => setDeliveryVisible(false);
-
-    const openDistance = () => setDistanceVisible(true);
-    const closeDistance = () => setDistanceVisible(false);
+    
 
 
     const dashItems = [
@@ -68,15 +57,7 @@ function DashBoardScreen() {
     ]
 
 
-    // const filterItems = [
-    //     { name: "Flash:20 mins", onclick: () => openFlash() },
-    //     { name: "Pickup", onclick: () => selectFilter() },
-    //     { name: "Offers", onclick: () => selectFilter() },
-    //     { name: "Rating", onclick: () => selectFilter() },
-    //     { name: "Price", onclick: () => selectFilter() },
-    //     { name: "Delivery Fee", onclick: () => selectFilter() },
-    //     { name: "Distance", onclick: () => selectFilter() },
-    // ]
+   
 
 
     const [filterItems, setFilterItems] = useState([
@@ -145,7 +126,7 @@ function DashBoardScreen() {
 
 
                 <Pressable
-                    onPress={() => { }}
+                    onPress={() => navigation.navigate("BasketScreen")}
                 >
                     {/* <AntDesign
                                 name="bells"
@@ -170,7 +151,7 @@ function DashBoardScreen() {
 
             </View>
 
-            <View style={apptw`flex flex-row gap-x-5 mx-auto`}>
+            <View style={apptw` flex-row gap-x-5 ml-1 `}>
 
 
 
@@ -314,10 +295,7 @@ function DashBoardScreen() {
             </LocationDrawer>
 
 
-            {/* filters */}
-            <FlashDrawer isVisible={isFlashVisible} onClose={closeFlash}>
-
-            </FlashDrawer>
+          
         </LoggedInLayout>
     )
 }

@@ -9,6 +9,7 @@ import { useCartStore } from "../../utils/Cart/useCartStore"
 import PressAppText from "../../components/Display/PressAppText"
 import CheckoutDrawer from "./Components/CheckoutDrawer"
 import { useState } from "react"
+import { RestaurantsArray } from "../../utils/data/mockData"
 
 type MyScreenProps = RouteProp<RootStackParamList, "BasketDetails">
 
@@ -24,12 +25,51 @@ const BasketDetails: React.FC<Props> = ({ route }) => {
     const navigation = useNavigation()
 
     const requestCart = useCartStore((state) => state.cart)
+    const deleteFromCart = useCartStore((store) => store.removeFromCart)
+
+    const addToCart = useCartStore((state) => state.addToCart)
+    const decrease = useCartStore((state) => state.decreaseQunatity)
 
 
     const ResDetails = requestCart[route.params.index]
     const [isDrawerVisible, setDrawerVisible] = useState(false);
     const openDrawer = () => setDrawerVisible(true);
     const closeDrawer = () => setDrawerVisible(false);
+
+
+    const storeDets = RestaurantsArray.find((resName: { name: string }) => resName.name === ResDetails?.storeName)
+
+
+
+
+    function addCart(info: any) {
+        const breakdown = {
+            storeName: storeDets?.name,
+            info: [{ ...info, quantity: 1 }]
+        }
+
+        addToCart(breakdown)
+    }
+
+
+    function reduceQuant(info: any) {
+        const breakdown = {
+            storeName: storeDets?.name,
+            info: [{ ...info, quantity: 1 }]
+        }
+        decrease(breakdown)
+    }
+
+
+
+    function DelItem() {
+
+
+        deleteFromCart(route.params.index)
+        navigation.goBack()
+    }
+
+
     return (
         <LoggedInLayout>
             <View style={apptw`h-full`} >
@@ -56,17 +96,18 @@ const BasketDetails: React.FC<Props> = ({ route }) => {
                         <AppText
                             style={apptw`font-bold my-auto text-xl`}
                         >
-                            {ResDetails.storeName}
+                            {ResDetails?.storeName}
                         </AppText>
 
 
                     </View>
 
-                    <View
+                    <Pressable
+                        onPress={() => DelItem()}
                         style={apptw`my-auto mx-4`}
                     >
                         <Feather name="trash-2" size={24} color="#48505E" />
-                    </View>
+                    </Pressable>
 
 
                 </View>
@@ -83,7 +124,7 @@ const BasketDetails: React.FC<Props> = ({ route }) => {
                         style={apptw`border py-2 mx-5 px-4 rounded-md border-[#D9DCE2] `}
                     >
 
-                        {ResDetails.info.map((items: any, index: any) => (
+                        {ResDetails?.info.map((items: any, index: any) => (
                             <View
                                 key={index}
                             >
@@ -118,7 +159,9 @@ const BasketDetails: React.FC<Props> = ({ route }) => {
                                         <View
                                             style={apptw`border border-[#B9BDC7] w-12 h-12 rounded-full`}
                                         >
-                                            <PressAppText style={apptw` text-center my-auto text-4xl`}>
+                                            <PressAppText
+                                                onPress={() => reduceQuant(storeDets?.products[index])}
+                                                style={apptw` text-center my-auto text-4xl`}>
                                                 -
                                             </PressAppText>
 
@@ -127,7 +170,9 @@ const BasketDetails: React.FC<Props> = ({ route }) => {
                                         <View
                                             style={apptw`border border-[#B9BDC7] w-12 h-12 rounded-full`}
                                         >
-                                            <PressAppText style={apptw` text-center my-auto text-4xl`}>
+                                            <PressAppText
+                                                onPress={() => addCart(storeDets?.products[index])}
+                                                style={apptw` text-center my-auto text-4xl`}>
                                                 +
                                             </PressAppText>
                                         </View>
@@ -162,16 +207,16 @@ const BasketDetails: React.FC<Props> = ({ route }) => {
                 </ScrollView>
                 <Pressable
 
-                onPress={()=>openDrawer()}
+                    onPress={() => openDrawer()}
                     style={apptw` bg-[#6741FF] py-2 px-30 rounded-full absolute top-[90%] left-[10%] z-10  `}
                 >
 
                     <AppText style={apptw`text-white text-center`}> checkout</AppText>
                 </Pressable>
 
-                <CheckoutDrawer isVisible={isDrawerVisible} onClose={closeDrawer} >
+                <CheckoutDrawer isVisible={isDrawerVisible} onClose={closeDrawer} index={route.params.index} >
 
-                    
+
                 </CheckoutDrawer>
             </View>
         </LoggedInLayout>

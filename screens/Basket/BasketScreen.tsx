@@ -25,11 +25,11 @@ export default function BasketScreen({ navigation }: ScreenProps) {
     const closeDrawer = () => setDrawerVisible(false);
 
     const requestCart = useCartStore((state) => state.cart)
-    const calculateTotalPrice = (infoArray:any) => {
+    const calculateTotalPrice = (infoArray: any) => {
         return infoArray.reduce((total: any, item: { price: any; }) => total + (item.price || 0), 0);
-      };
+    };
 
-    console.log(requestCart)
+    console.log(requestCart.length)
     return (
         <LoggedInLayout>
             <View>
@@ -61,101 +61,112 @@ export default function BasketScreen({ navigation }: ScreenProps) {
                 </View>
 
 
+                {requestCart.length < 1 ?
 
+                    <>
+                        <AppText style={apptw`text-center font-bold text-3xl`}>
+                            Empty
+                        </AppText>
+                    </> :
 
-                <ScrollView
-                    nestedScrollEnabled
-                    style={apptw`h-[70%] `}
-                >
-
-
-                    {/* item Icons */}
-
-                    {requestCart.map((items:any, index:any) => (
-                        <View
-                        key={index}
+                    <>
+                        <ScrollView
+                            nestedScrollEnabled
+                            style={apptw`h-[70%] `}
                         >
-                            <View
-                                style={apptw` h-52 border mx-4 rounded-xl border-[#D9DCE2] mb-4`}
-                            >
 
 
+                            {/* item Icons */}
+
+                            {requestCart.map((items: any, index: any) => (
                                 <View
-                                    style={apptw`flex-row mx-4 mt-3 justify-between`}
+                                    key={index}
                                 >
+                                    <View
+                                        style={apptw` h-55 border mx-4 rounded-xl border-[#D9DCE2] mb-4`}
+                                    >
 
-                                    <View style={apptw`flex-row gap-x-3`}>
+
                                         <View
-                                            style={apptw`bg-white border h-21 w-21 rounded-full border-[#D9DCE2]`}
+                                            style={apptw`flex-row mx-4 mt-3 justify-between`}
                                         >
-                                            <Image
-                                                source={require(`../../assets/icons/brand_icon.png`)}
 
-                                            />
+                                            <View style={apptw`flex-row gap-x-3`}>
+                                                <View
+                                                    style={apptw`bg-white border h-21 w-21 rounded-full border-[#D9DCE2]`}
+                                                >
+                                                    <Image
+                                                        source={require(`../../assets/icons/brand_icon.png`)}
 
-                                        </View>
-                                        <View style={apptw`w-40`}>
-                                            <AppText>
-                                               {items.storeName}
-                                            </AppText>
-                                            <View style={apptw`flex-row gap-x-2`}>
-                                                <AppText>
-                                                    {items.info.length} Items
-                                                </AppText>
-                                                <View style={apptw`h-2 w-2 bg-[#9980FF] rounded-full my-auto`} />
-                                                <AppText>
-                                                    {/* ₦{items.info[0].price} */}
+                                                    />
 
-                                                    ₦{calculateTotalPrice(items.info)}
-                                                </AppText>
+                                                </View>
+                                                <View style={apptw`w-40`}>
+                                                    <AppText>
+                                                        {items.storeName}
+                                                    </AppText>
+                                                    <View style={apptw`flex-row gap-x-2`}>
+                                                        <AppText>
+                                                            {items.info.length} Items
+                                                        </AppText>
+                                                        <View style={apptw`h-2 w-2 bg-[#9980FF] rounded-full my-auto`} />
+                                                        <AppText>
+                                                            {/* ₦{items.info[0].price} */}
+
+                                                            ₦{calculateTotalPrice(items.info)}
+                                                        </AppText>
+                                                    </View>
+
+                                                    <Text style={apptw``}>
+                                                        Delivers to 23, Kudirat Abiola Way, Oba Akran, Ikeja, Lagos
+                                                    </Text>
+                                                </View>
+
                                             </View>
 
-                                            <Text style={apptw``}>
-                                                Delivers to 23, Kudirat Abiola Way, Oba Akran, Ikeja, Lagos
-                                            </Text>
+
+                                            <Pressable
+                                                onPress={() => { openDrawer(), SetIndex(index) }}
+                                            >
+                                                <Feather name="more-vertical" size={24} color="black" />
+                                            </Pressable>
+
+
+
+                                        </View>
+
+                                        <View style={apptw`flex-row justify-between mx-auto gap-x-5 pt-10 pb-2`}>
+
+                                            <Pressable
+                                                onPress={() => navigation.navigate("StoreScreen", { name: items.storeName })}
+                                                style={apptw`bg-[#F7F5FF] border border-[#9980FF] rounded-full px-6 border-2`}
+                                            >
+                                                <AppText style={apptw`text-[#6741FF]`}>
+                                                    View Store
+                                                </AppText>
+                                            </Pressable>
+
+                                            <Pressable
+                                                style={apptw`bg-[#6741FF]  rounded-full px-6 `}
+                                                onPress={() => navigation.navigate("BasketDetails", { index: index })}
+                                            >
+                                                <AppText style={apptw`text-white`}>
+                                                    View Basket
+                                                </AppText>
+                                            </Pressable>
                                         </View>
 
                                     </View>
 
-
-                                    <Pressable
-                                        onPress={() => { openDrawer(), SetIndex(1) }}
-                                    >
-                                        <Feather name="more-vertical" size={24} color="black" />
-                                    </Pressable>
-
-
-
                                 </View>
-
-                                <View style={apptw`flex-row justify-between mx-auto gap-x-5 pt-10 pb-2`}>
-
-                                    <Pressable
-                                        onPress={() => navigation.navigate("StoreScreen", { name: items.storeName })}
-                                        style={apptw`bg-[#F7F5FF] border border-[#9980FF] rounded-full px-6 border-2`}
-                                    >
-                                        <AppText style={apptw`text-[#6741FF]`}>
-                                            View Store
-                                        </AppText>
-                                    </Pressable>
-
-                                    <Pressable
-                                        style={apptw`bg-[#6741FF]  rounded-full px-6 `}
-                                        onPress={() => navigation.navigate("BasketDetails", { index: index })}
-                                    >
-                                        <AppText style={apptw`text-white`}>
-                                            View Basket
-                                        </AppText>
-                                    </Pressable>
-                                </View>
-
-                            </View>
-
-                        </View>
-                    ))}
+                            ))}
 
 
-                </ScrollView>
+                        </ScrollView>
+                    </>
+                }
+
+
                 <DeleteDrawer isVisible={isDrawerVisible} onClose={closeDrawer} index={isIndex}  >
 
                 </DeleteDrawer>

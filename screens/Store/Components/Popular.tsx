@@ -19,52 +19,31 @@ export default function Popular(index: any) {
     const requestCart = useCartStore((state) => state.cart)
     const decrease = useCartStore((state) => state.decreaseQunatity)
 
-    // console.log(requestCart)
 
     function addCart(info: any) {
-
-
-
-
         const breakdown = {
-
-
-
             storeName: ResDetails?.name,
             info: [{ ...info, quantity: 1 }]
         }
-        // console.log(breakdown)
 
         addToCart(breakdown)
     }
 
 
     function reduceQuant(info: any) {
-
-
-
-
         const breakdown = {
-
-
-
-
             storeName: ResDetails?.name,
             info: [{ ...info, quantity: 1 }]
         }
-        // console.log(breakdown)
-
         decrease(breakdown)
     }
 
-
-    // console.log(requestCart)
 
 
 
 
     const isCart = requestCart.find((resName: { storeName: string }) => resName.storeName === index.index)
-    // console.log(isCart.info[0].name)
+
     return (
         <View style={apptw`mb-10`}>
             <AppText style={apptw`font-bold mx-5 pb-10 pt-5`}>
@@ -81,7 +60,10 @@ export default function Popular(index: any) {
                     <View
                         style={apptw` flex flex-row justify-between px-5 gap-x-5 w-[100%]`}
                     >
+                        {isCart?.info.find((foodI: { name: string; }) => foodI.name === items.name) &&
+                            <View style={apptw`bg-primary h-full w-2 rounded-r-full  absolute`}>
 
+                            </View>}
 
 
                         <View

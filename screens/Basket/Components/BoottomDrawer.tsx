@@ -12,9 +12,9 @@ const DeleteDrawer = ({ isVisible, onClose, index }) => {
 
     console.log(index)
     const clearCart = useCartStore((state) => state.clearCart)
-
+    const deleteFromCart = useCartStore((store) => store.removeFromCart)
     function deleteAll() {
-        clearCart()
+        deleteFromCart(index)
         onClose()
 
     }

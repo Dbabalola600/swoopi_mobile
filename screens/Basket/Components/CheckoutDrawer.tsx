@@ -1,20 +1,25 @@
 import React, { FC, useState } from 'react';
-import { View,  TouchableOpacity, Modal, StyleSheet, Pressable, Image, FlatList } from 'react-native';
+import { View, TouchableOpacity, Modal, StyleSheet, Pressable, Image, FlatList } from 'react-native';
 import AppText from '../../../components/Display/AppText';
 import apptw from '../../../utils/lib/tailwind';
 import { Feather } from '@expo/vector-icons';
 import PressAppText from '../../../components/Display/PressAppText';
 import { useCartStore } from '../../../utils/Cart/useCartStore';
+import { useNavigation } from '@react-navigation/native';
 
 
 
-const CheckoutDrawer = ({ isVisible, onClose }) => {
+const CheckoutDrawer = ({ isVisible, onClose , index }) => {
 
-
+    const navigation = useNavigation()
     const clearCart = useCartStore((state) => state.clearCart)
+    const deleteFromCart = useCartStore((store) => store.removeFromCart)
 
-   
-
+    const goneDeal = () => {
+        deleteFromCart(index.index)
+        onClose()
+        navigation.goBack()
+    }
 
     return (
         <Modal
@@ -40,7 +45,7 @@ const CheckoutDrawer = ({ isVisible, onClose }) => {
                     </AppText>
 
                     <Pressable
-                        onPress={() => onClose()}
+                        onPress={() => goneDeal()}
                         style={apptw`font-bold py-2 bg-primary rounded-full my-10`}
                     >
 

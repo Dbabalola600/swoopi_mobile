@@ -4,6 +4,7 @@ import apptw from "../../../utils/lib/tailwind";
 import { Feather } from "@expo/vector-icons";
 import PressAppText from "../../../components/Display/PressAppText";
 import { RestaurantsArray } from "../../../utils/data/mockData";
+import { useCartStore } from "../../../utils/Cart/useCartStore";
 
 
 
@@ -11,6 +12,35 @@ import { RestaurantsArray } from "../../../utils/data/mockData";
 export default function FamilyValue(index: any) {
     const ResDetails = RestaurantsArray.find((resName: {name:string})=>resName.name === index.index)
 
+    const addToCart = useCartStore((state) => state.addToCart)
+    const removeFromCart = useCartStore((state) => state.removeFromCart)
+    const requestCart = useCartStore((state) => state.cart)
+    const decrease = useCartStore((state) => state.decreaseQunatity)
+
+
+    function addCart(info: any) {
+        const breakdown = {
+            storeName: ResDetails?.name,
+            info: [{ ...info, quantity: 1 }]
+        }
+
+        addToCart(breakdown)
+    }
+
+
+    function reduceQuant(info: any) {
+        const breakdown = {
+            storeName: ResDetails?.name,
+            info: [{ ...info, quantity: 1 }]
+        }
+        decrease(breakdown)
+    }
+
+
+
+
+
+    const isCart = requestCart.find((resName: { storeName: string }) => resName.storeName === index.index)
 
     return (
         <View style={apptw`mb-10`}>
@@ -29,7 +59,10 @@ export default function FamilyValue(index: any) {
                     <View
                         style={apptw` flex flex-row justify-between px-5 gap-x-5 w-[100%]`}
                     >
+                        {isCart?.info.find((foodI: { name: string; }) => foodI.name === items.name) &&
+                            <View style={apptw`bg-primary h-full w-2 rounded-r-full  absolute`}>
 
+                            </View>}
 
 
                         <View
@@ -77,44 +110,66 @@ export default function FamilyValue(index: any) {
                             <View
                                 style={apptw``}
                             >
-                                {/* <Pressable
-                            style={apptw`rounded-full h-10 w-10 bg-[#D0C4FF] border border-[#6741FF] border-2 mx-auto top-[-5] `}
-                        >
-
-                            <AppText
-                                style={apptw`text-center text-2xl text-[#6741FF]`}
-                            >
-                                +
-                            </AppText>
-
-                        </Pressable> */}
 
 
-                                <Pressable
-                                    style={apptw`rounded-full h-10 w-30 bg-[#D0C4FF] border border-[#6741FF] border-2 mx-auto top-[-5] flex-row justify-between `}
-                                >
 
-                                    <Pressable
-                                        style={apptw`my-auto px-2`}
-                                    >
+                                {isCart?.info.find((foodI: { name: string; }) => foodI.name === items.name) ?
 
-                                        <Feather name="trash-2" size={24} color="#6741FF" />
+                                    <View>
+                                        <Pressable
+                                            style={apptw`rounded-full h-10 w-30 bg-[#D0C4FF] border border-[#6741FF] border-2 mx-auto top-[-5] flex-row justify-between `}
+                                        >
 
-                                    </Pressable>
+                                            <Pressable
 
-                                    <AppText
-                                        style={apptw`text-center text-xl text-[#6741FF] my-auto`}
-                                    >
-                                        1
-                                    </AppText>
+                                                onPress={() => reduceQuant(ResDetails?.products[index])}
+                                                style={apptw`my-auto px-2`}
+                                            >
 
-                                    <PressAppText
-                                        style={apptw`text-center text-3xl text-[#6741FF] my-auto px-2`}
-                                    >
-                                        +
-                                    </PressAppText>
+                                                <Feather name="trash-2" size={24} color="#6741FF" />
 
-                                </Pressable>
+                                            </Pressable>
+
+
+
+                                            {isCart?.info.find((foodI: { name: string; quantity: any }) => foodI.name === items.name) ? (
+                                                <AppText style={apptw`text-center text-xl text-[#6741FF] my-auto`}>
+                                                    {isCart?.info.find((foodI: { name: string; quantity: any }) => foodI.name === items.name)?.quantity}
+                                                </AppText>
+                                            ) : (
+                                                <AppText style={apptw`text-center text-xl text-[#6741FF] my-auto`}>
+                                                    nop
+                                                </AppText>
+                                            )}
+
+
+                                            <PressAppText
+                                                onPress={() => addCart(ResDetails?.products[index])}
+                                                style={apptw`text-center text-3xl text-[#6741FF] my-auto px-2`}
+                                            >
+                                                +
+                                            </PressAppText>
+                                        </Pressable>
+                                    </View>
+                                    :
+                                    <>
+                                        <Pressable
+
+                                            onPress={() => addCart(ResDetails?.products[index])}
+                                            style={apptw`rounded-full h-10 w-10 bg-[#D0C4FF] border border-[#6741FF] border-2 mx-auto top-[-5] `}
+                                        >
+
+                                            <AppText
+                                                style={apptw`text-center text-2xl text-[#6741FF]`}
+                                            >
+                                                +
+                                            </AppText>
+
+                                        </Pressable>
+                                    </>}
+
+
+
                             </View>
 
 
@@ -125,6 +180,8 @@ export default function FamilyValue(index: any) {
 
                 </View>
             ))}
+
+
 
         </View>
     )

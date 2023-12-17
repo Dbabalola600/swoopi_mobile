@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "Swoopi",
+    "slug":"swoopi_interview",
+    "orientation": "portrait",
+
+    "splash": {
+      "image": "./assets/icons/swoopi_logo.png",
+
+      "backgroundColor": "#6741FF"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "83eee5b7-b230-4b13-975d-02bf238e9983"
+      }
+    },
+    "android": {
+
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icons/swoopi_logo.png",
+        "backgroundColor": "#808080"
+      },
+      "package": "com.dami600b.swoopi_interview"
+    }
+  }
+}

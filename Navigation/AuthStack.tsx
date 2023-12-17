@@ -13,6 +13,7 @@ import StoreScreen from "../screens/Store/StoreScreen";
 import SearchScreen from "../screens/Search/SearchScreen";
 import BasketScreen from "../screens/Basket/BasketScreen";
 import BasketDetails from "../screens/Basket/BasketDetails";
+import Tabs from "./Tabs";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -32,7 +33,7 @@ const AuthStack = () => {
                 headerShown: true,
                 headerTitle: "",
                 headerStyle: {
-                    backgroundColor: "transparent"
+                    backgroundColor: "white"
                 },
                 headerShadowVisible: false
             }}
@@ -44,10 +45,7 @@ const AuthStack = () => {
                 name="SignIn"
                 component={SignIn}
 
-                options={{
-                    headerTitle: '',
-
-                }}
+              
             />
             <Stack.Screen
                 name="SignUp"
@@ -84,7 +82,7 @@ const AuthStack = () => {
             />
             <Stack.Screen
                 name="DashBoardScreen"
-                component={AppStack}
+                component={Tabs}
                 options={{
 
                     headerShown: false
